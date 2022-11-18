@@ -1,0 +1,4 @@
+C:\Users\diego\Desktop\FullStackLabs\hey-url-challenge-code-dotnet\tests\obj\Debug\net5.0\tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\diego\Desktop\FullStackLabs\hey-url-challenge-code-dotnet\tests\obj\Debug\net5.0\tests.AssemblyInfoInputs.cache
+C:\Users\diego\Desktop\FullStackLabs\hey-url-challenge-code-dotnet\tests\obj\Debug\net5.0\tests.AssemblyInfo.cs
+C:\Users\diego\Desktop\FullStackLabs\hey-url-challenge-code-dotnet\tests\obj\Debug\net5.0\tests.csproj.CoreCompileInputs.cache

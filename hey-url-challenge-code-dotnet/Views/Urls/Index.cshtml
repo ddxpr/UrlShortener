@@ -1,0 +1,91 @@
+﻿@model hey_url_challenge_code_dotnet.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (TempData["Notice"] is not null)
+{
+    <div class="card-panel notice deep-orange">@TempData["Notice"]</div>
+}
+
+<div class="row">
+    <div class="col m12">
+        <form asp-action="Create">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col m8 offset-m2 center-align">
+                            <span class="card-title">Create a new short URL</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m6 offset-m2">
+                            <input asp-for="OriginalUrl" type="text" class="validate form-control" placeholder="Your original URL here" />
+                        </div>
+                        <div class="col m2">
+                            <button type="submit" class="btn">Shorten URL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table highlight">
+    <thead>
+        <tr>
+            <th scope="col">Short URL</th>
+            <th scope="col">Original URL</th>
+            <th scope="col">Created</th>
+            <th scope="col">Clicks Count</th>
+            <th scope="col">Stats</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var url in Model.Urls)
+        {
+            <tr>
+                <td> <a onclick="updateItemCount(@url.Id)"></a> @url.ShortUrl</td>
+                <td>@url.OriginalUrl</td>
+                <td>@url.Created</td>
+                <td>@url.Count</td>
+                <td>
+                    <a href=@string.Format("/urls/{0}", url.ShortUrl)>
+                        <svg class="octicon octicon-graph" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"></path>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+ function updateLinkCount(IDurl) {
+  //Now generate your JSON data here to be sent to the server
+  var json = {
+              idUrl: IDurl
+             };
+
+   //Send the JSON data via AJAX to your Controller method
+    $.ajax({
+        url: '@Url.Action("ProcessMyURLCount", "Urls")',
+        type: 'post',
+        dataType: "json",
+        data: { "json": JSON.stringify(json)},
+        success: function (data) {
+                if (data.success) {
+                  console.log("Successfully incremented count");
+                 }
+                else {
+                 console.log("Could not increment count");
+                }
+        },
+        error: function (error) {
+             console.log(error)
+        }
+      });
+    });
+</script>
